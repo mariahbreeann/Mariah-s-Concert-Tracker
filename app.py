@@ -192,7 +192,7 @@ st.markdown("---")
 
 # ── Tabs ───────────────────────────────────────────────────────────────────
 
-tab_calendar, tab_map, tab_table = st.tabs(["🎸  Calendar", "📍  Map", "💵  Tracker"])
+tab_calendar, tab_map, tab_table = st.tabs(["🎸  Calendar", "📍  Map", "💵  Tracker / Tickets"])
 
 
 # ╔══════════════════════════════════════════════════════╗
@@ -474,6 +474,7 @@ with tab_table:
 
     st.dataframe(styled, use_container_width=True, hide_index=True, column_config={
         "Ticketmaster": st.column_config.LinkColumn("Ticketmaster", display_text="🎸 Buy tickets"),
+        "Notes": st.column_config.TextColumn("Notes", width="large", help="Full note"),
     })
 
     # Budget bar chart
