@@ -410,6 +410,7 @@ with tab_map:
             paper_bgcolor=CREAM,
             margin=dict(l=0, r=0, t=0, b=0),
             height=560,
+            hoverlabel=dict(namelength=0),
             legend=dict(
                 title="Plan to Attend",
                 bgcolor=CREAM_DARK,
@@ -418,6 +419,14 @@ with tab_map:
                 font=dict(color=BLACK, family="Oswald"),
             ),
         )
+        fig_map.update_traces(hovertemplate=(
+            "<b>%{hovertext}</b><br>"
+            "Venue: %{customdata[0]}<br>"
+            "City: %{customdata[1]}, %{customdata[2]}<br>"
+            "Date: %{customdata[3]}<br>"
+            "Plan to Attend: %{customdata[4]}<br>"
+            "Attended: %{customdata[5]}<extra></extra>"
+        ))
         st.plotly_chart(fig_map, use_container_width=True)
 
         venue_counts = (
