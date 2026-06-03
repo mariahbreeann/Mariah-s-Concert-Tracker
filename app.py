@@ -382,17 +382,23 @@ with tab_map:
 
     if not map_df.empty:
         map_df["show_date_str"] = map_df["show_date"].dt.strftime("%b %d, %Y")
+        map_df["Venue"]          = map_df["venue"].fillna("TBD")
+        map_df["City"]           = map_df["city"].fillna("TBD")
+        map_df["State"]          = map_df["state"].fillna("")
+        map_df["Date"]           = map_df["show_date_str"].fillna("TBD")
+        map_df["Plan to Attend"] = map_df["plan_to_attend"]
+        map_df["Attended"]       = map_df["attended"]
 
         fig_map = px.scatter_mapbox(
             map_df,
             lat="lat", lon="lon",
             hover_name="artist",
             hover_data={
-                "venue": True, "city": True, "state": True,
-                "show_date_str": True, "plan_to_attend": True,
-                "attended": True, "lat": False, "lon": False,
+                "Venue": True, "City": True, "State": True,
+                "Date": True, "Plan to Attend": True,
+                "Attended": True, "lat": False, "lon": False,
             },
-            color="plan_to_attend",
+            color="Plan to Attend",
             color_discrete_map={"Yes": RED, "Maybe": GOLD, "No": GRAY},
             size_max=18,
             zoom=5,
@@ -405,6 +411,7 @@ with tab_map:
             margin=dict(l=0, r=0, t=0, b=0),
             height=560,
             legend=dict(
+                title="Plan to Attend",
                 bgcolor=CREAM_DARK,
                 bordercolor=BLACK,
                 borderwidth=2,
@@ -414,10 +421,10 @@ with tab_map:
         st.plotly_chart(fig_map, use_container_width=True)
 
         venue_counts = (
-            map_df.groupby(["venue", "city", "state"])
-            .agg(shows=("artist", "count"))
+            map_df.groupby(["Venue", "City", "State"])
+            .agg(Shows=("artist", "count"))
             .reset_index()
-            .sort_values("shows", ascending=False)
+            .sort_values("Shows", ascending=False)
         )
         if len(venue_counts) > 0:
             st.markdown(f"<div style='font-family:Oswald,sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:{BLACK}; margin-top:12px;'>Shows per venue</div>", unsafe_allow_html=True)
