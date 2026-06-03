@@ -334,7 +334,7 @@ with tab_calendar:
                     yaxis=dict(visible=False, range=[-0.6, len(grid) + 0.6]),
                     showlegend=False,
                 )
-                st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False}, key=f"cal_{month}")
+                st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False, "scrollZoom": False, "doubleClick": False, "showTips": False}, key=f"cal_{month}")
 
     st.markdown(
         f"<div style='font-size:12px; font-family:Oswald,sans-serif; letter-spacing:1px;'>"
