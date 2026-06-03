@@ -463,7 +463,7 @@ with tab_table:
 
     styled = (
         table.style
-        .applymap(style_pct, subset=["% +/–"])
+        .map(style_pct, subset=["% +/–"])
         .format({
             "Budget/ticket": lambda v: f"${v:,.0f}" if pd.notna(v) else "—",
             "Actual/ticket": lambda v: f"${v:,.0f}" if pd.notna(v) else "—",
